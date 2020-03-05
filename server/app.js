@@ -3,6 +3,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 const multer = require("multer");
 const fileType = require("file-type");
+const fs = require("fs");
+const readDirectory = require("./src/readDirectory");
+const path = require("path");
+
+app.use(express.static(__dirname + "/images"));
 
 const router = express.Router();
 
@@ -44,22 +49,29 @@ router.post("/images/upload", (req, res, err) => {
     });
 });
 
+router.get("/images", (req, res) => {
+    readDirectory.readDirectory(function(logFiles) {
+        res.json({ files: logFiles });
+    });
+});
+
 router.get("/images/:imageId", (req, res) => {
     let imageId = req.params.imageId;
-    let imagepath = __dirname + "/images/" + imageId;
-    let image = fs.readFileSync(imagepath);
-    let mime = fileType(image).mime;
+    let imagePath = path.join(__dirname, "/images/", imageId);
+    let image = fs.readFileSync(imagePath);
+    // let mime = fileType(image).mime;
+    let mime = fileType.fromFile(imagePath);
+    // mime.then(function(result) {
+    //     console.log(result);
+    // }).catch(function(err) {
+    //     console.log(err);
+    // });
+    // // console.log(mime);
 
-    console.log("get req made");
     res.writeHead(200, { "Content-Type": mime });
     res.end(image, "binary");
 });
 
-router.get("/images", (req, res) => {
-    console.log("get req made");
-
-    res.end("it is success");
-});
 app.use("/", router);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

@@ -6,8 +6,9 @@
 2) yuklu olan resimlere get req yapsin.
 
     - yarim
-    - mime type, file type lari incele.
 
 3) yuklu olan resimler liste olarak gorsun.
 
     - eksik
+    - Array gonderebiliyorum.
+    - modify time a gore siralamak mantikli.
