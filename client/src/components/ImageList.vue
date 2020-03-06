@@ -1,9 +1,14 @@
 <template>
     <div class="image-list">
-        <div v-for="(src, index) in files" class="container" :key="index">
-            <img :src="ImageSrc(src)" alt="" />
-            add Downlaod button
+        <div v-if="files">
+            <div v-for="(src, index) in files" class="container" :key="index">
+                <img :src="ImageSrc(src)" alt="" />
+                add Downlaod button
+            </div>
         </div>
+        <p v-else>
+            files is empty
+        </p>
     </div>
 </template>
 
@@ -19,8 +24,10 @@ export default {
             return "http://localhost:3000/images/" + str;
         },
     },
-    mounted() {
+    mounted() {},
+    async created() {
         this.yenile();
+        console.log("image list beforecreated");
     },
 };
 </script>

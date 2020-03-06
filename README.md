@@ -1,14 +1,21 @@
-## Tasks
+## Aciklama.
 
-1. form ile browserdan yuklenen resimi server post request ile kaydede bilsin.
-    - `make pic` komutunu tamam
+Server, client klasorlerinde ayri ayri calistirilir.
 
-2) yuklu olan resimlere get req yapsin.
+```
+npm start  # in server
+npm run serve # in client
+```
 
-    - yarim
+Browser de `http://localhost:8080/` adresinde yapilabilicek islemler.
 
-3) yuklu olan resimler liste olarak gorsun.
+-   dosya sec, servere gonder ve serverde yuklu olan resimleri gor.
 
-    - eksik
-    - Array gonderebiliyorum.
-    - modify time a gore siralamak mantikli.
+### Tasks
+
+1. kraken io yi kullanip dosyalari kucultme.
+1. Link uzerinde resimi server indirebilme.
+1. Serverden download linki
+1. Image list icin ReadFile yaparken zamana gore siralama
+    - stat or statSync in node
+    - readDirectory.js degistirilecek.

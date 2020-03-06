@@ -5,11 +5,8 @@
         <Upload :yenile="sorgula" />
 
         <div>
-            <button @click="deneme">guncelle</button>
-            <image-list v-if="files" :files="files" :yenile="sorgula" />
-            <p v-else>
-                loading
-            </p>
+            <button @click="sorgula">guncelle</button>
+            <image-list :files="files" :yenile="sorgula" />
         </div>
     </div>
 </template>
@@ -31,12 +28,9 @@ export default {
         };
     },
     methods: {
-        deneme() {
-            this.sorgula();
-            console.log("denendi");
-        },
-        sorgula() {
-            axios
+        async sorgula() {
+            console.log(" sorgu methodu calisti");
+            await axios
                 .get("http://localhost:3000/images/")
                 .then(response => {
                     // handle success
@@ -50,8 +44,8 @@ export default {
                     console.log(error);
                 });
         },
-        mounted() {
-            this.sorgula();
+        created() {
+            this.sorgula;
         },
     },
 };
@@ -62,5 +56,10 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+    width: 960px;
+    margin: 0 auto;
+}
+button {
+    margin: 10px;
 }
 </style>
