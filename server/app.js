@@ -6,31 +6,24 @@ const fileType = require("file-type");
 const fs = require("fs");
 const readDirectory = require("./src/readDirectory");
 const path = require("path");
+const cors = require("cors");
 
 app.use(express.static(__dirname + "/images"));
+app.use(cors());
 
 const router = express.Router();
 
 var upload = multer({
-    dest: "images/",
+    dest: path.join(__dirname, "/images/"),
     fileFilter: function fileFilter(req, file, cb) {
-        // The function should call `cb` with a boolean
-        // to indicate if the file should be accepted
-
         // To reject this file pass `false`, like so:
-        cb(null, false);
+        // cb(null, false);
 
-        // To accept the file pass `true`, like so:
-        cb(null, true);
-
-        // You can always pass an error if something goes wrong:
-        cb(new Error("I don't have a clue!"));
-
-        if (!file.originalname.match(/\.(jpg|jpeg)$/)) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
             return cb(new Error("this format are not allowed !"), false);
         }
-
-        callback(null, true);
+        // // To accept the file pass `true`, like so:
+        cb(null, true);
     },
 }).single("image");
 
@@ -50,6 +43,7 @@ router.post("/images/upload", (req, res, err) => {
 });
 
 router.get("/images", (req, res) => {
+    // files cok gonderiliyor olmasina sebebi muhtemelen readDire logfile
     readDirectory.readDirectory(function(logFiles) {
         res.json({ files: logFiles });
     });
